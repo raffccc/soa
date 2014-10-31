@@ -2,6 +2,7 @@ package com.knight.stocks.service;
 
 import java.util.List;
 
+import javax.ejb.Stateless;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
@@ -17,6 +18,7 @@ import com.knight.stocks.model.Book;
 import com.knight.stocks.model.User;
 
 @WebService
+@Stateless
 public class BooksService {
 	
 	private BookDAO getBookDAO() {
