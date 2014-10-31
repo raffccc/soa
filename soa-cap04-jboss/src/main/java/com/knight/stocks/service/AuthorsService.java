@@ -1,22 +1,24 @@
 package com.knight.stocks.service;
 
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
+import javax.ejb.Stateless;
 import javax.jws.WebService;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.xml.ws.Endpoint;
 
 import com.knight.stocks.model.Author;
 
 @WebService
+@Stateless
 public class AuthorsService {
 	
+	@PersistenceContext
+	private EntityManager em;
+	
 	public List<Author> listAuthors() {
-		Author adrianoAlmeida = new Author("Adriano Almeida", new Date());
-		Author pauloSilveira = new Author("Paulo Silveira", new Date());
-		Author viniciusBaggio = new Author("Vinicius Baggio", new Date());
-		return Arrays.asList(adrianoAlmeida, pauloSilveira, viniciusBaggio);
+		return em.createQuery("select a from Author a", Author.class).getResultList();
 	}
 	
 	public static void main(String[] args) {

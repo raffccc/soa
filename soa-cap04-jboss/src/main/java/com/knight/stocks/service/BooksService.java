@@ -13,7 +13,6 @@ import javax.xml.ws.RequestWrapper;
 import javax.xml.ws.ResponseWrapper;
 
 import com.knight.stocks.dao.BookDAO;
-import com.knight.stocks.exception.UnauthorizedUserException;
 import com.knight.stocks.model.Book;
 import com.knight.stocks.model.User;
 

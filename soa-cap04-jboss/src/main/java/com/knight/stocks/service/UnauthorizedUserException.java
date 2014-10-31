@@ -1,4 +1,4 @@
-package com.knight.stocks.exception;
+package com.knight.stocks.service;
 
 import java.util.GregorianCalendar;
 
@@ -79,6 +79,8 @@ public class UnauthorizedUserException extends Exception {
 				new RuntimeException(e);
 			}
 		}
+		
+		public UserFaultInfo() {}
 		
 	}
 	
