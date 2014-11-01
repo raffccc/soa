@@ -4,3 +4,5 @@ insert into User(name,login,password,image_id,updateDate) values ('Rafael','rafa
 insert into User(name,login,password,image_id,updateDate) values ('Paulo','paulo','paulo',null,CURRENT_TIMESTAMP);
 insert into User(name,login,password,image_id,updateDate) values ('Adriano','adriano','adriano',null,CURRENT_TIMESTAMP);
 insert into User(name,login,password,image_id,updateDate) values ('Matheus','matheus','matheus',null,CURRENT_TIMESTAMP);
+CREATE table privileged_user (login char(30), password char(60));
+insert into privileged_user (login, password) values('admin', 'jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg=');

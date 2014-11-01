@@ -1,3 +1,7 @@
 <jboss-web>
     <context-root>cap5rest</context-root>
+    
+    <!-- Name of the realm that was created in <jbossHome>/standalone/configuration/standalone.xml 
+    under the urn:jboss:domain:security:1.1 subsystem configuration
+    <security-domain>MyRealm</security-domain> -->
 </jboss-web>
