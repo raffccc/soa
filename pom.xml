@@ -10,6 +10,7 @@
 
 	<modules>
 		<module>soa-cap04-jboss</module>
+		<module>soa-cap05-rest</module>
 	</modules>
 
 	<build>

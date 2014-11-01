@@ -1,0 +1,3 @@
+<jboss-web>
+    <context-root>cap5rest</context-root>
+</jboss-web>
