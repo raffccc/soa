@@ -14,6 +14,9 @@ public class Users {
 	@XmlElement(name="user")
 	private Collection<User> users;
 	
+	public Users() {
+	}
+	
 	public Users(Collection<User> users) {
 		this.users = users;
 	}
