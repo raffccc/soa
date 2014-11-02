@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="AuthorsServiceService" 
+targetNamespace="http://service.stocks.knight.com/" 
+xmlns:ns1="http://schemas.xmlsoap.org/soap/http"
+xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+xmlns:tns="http://service.stocks.knight.com/"
+xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" 
+xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+	
+	<wsdl:types>
+		<xs:schema elementFormDefault="unqualified"
+		targetNamespace="http://service.stocks.knight.com/" version="1.0"
+		xmlns:tns="http://service.stocks.knight.com/" 
+		xmlns:xs="http://www.w3.org/2001/XMLSchema">
+			<xs:element name="listAuthors" type="tns:listAuthors" />
+			<xs:element name="listAuthorsResponse" type="tns:listAuthorsResponse" />
+			<xs:complexType name="listAuthors">
+				<xs:sequence />
+			</xs:complexType>
+			<xs:complexType name="listAuthorsResponse">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="author" type="tns:author" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="author">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="birthDate" type="xs:anySimpleType" />
+					<xs:element minOccurs="0" name="id" type="xs:long" />
+					<xs:element minOccurs="0" name="name" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+		</xs:schema>
+	</wsdl:types>
+	
+	<wsdl:message name="listAuthors">
+		<wsdl:part element="tns:listAuthors" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="listAuthorsResponse">
+		<wsdl:part element="tns:listAuthorsResponse" name="parameters" />
+	</wsdl:message>
+	
+	<wsdl:portType name="AuthorsService">
+		<wsdl:operation name="listAuthors">
+			<wsdl:input message="tns:listAuthors" name="listAuthors" />
+			<wsdl:output message="tns:listAuthorsResponse" name="listAuthorsResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+	
+	<wsdl:binding name="AuthorsServiceServiceSoapBinding" type="tns:AuthorsService">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsp:PolicyReference URI="#DefaultSecureServicePolicy" />
+		<wsdl:operation name="listAuthors">
+			<soap:operation soapAction="" style="document" />
+			<wsdl:input name="listAuthors">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="listAuthorsResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	
+	<wsdl:service name="AuthorsServiceService">
+		<wsdl:port binding="tns:AuthorsServiceServiceSoapBinding" name="AuthorsServicePort">
+			<soap:address location="ADDRESS" />
+		</wsdl:port>
+	</wsdl:service>
+	
+	<wsp:Policy wsu:Id="DefaultSecureServicePolicy">
+		<!-- The combination of ExactlyONe and All doesn't make sense, but it is the only way
+		that Apache CXF and JBossWS detect the configuration correctly -->
+		<!-- Just one of the policies must be satisfied -->
+		<wsp:ExactlyOne>
+			<!-- All policies must be satisfied -->
+			<wsp:All>
+				<sp:TransportBinding>
+					<wsp:Policy>
+						<!-- This says that the transport layer will be using https -->
+						<sp:TransportToken>
+							<wsp:Policy>
+								<sp:HttpsToken RequireClientCertificate="false" />
+							</wsp:Policy>
+						</sp:TransportToken>
+						
+						<!-- Remove the limitation of the processing order of the header -->
+						<sp:Layout>
+							<wsp:Policy>
+								<sp:Lax/>
+							</wsp:Policy>
+						</sp:Layout>
+						
+						<sp:IncludeTimestamp/>
+					</wsp:Policy>
+				</sp:TransportBinding>
+				
+				<!-- Password transportation -->
+				<sp:SignedSupportingTokens>
+					<!-- Tells that the server doesn't need to send back user and password information -->
+					<wsp:Policy>
+						<sp:UsernameToken sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+							<wsp:Policy>
+								<sp:HashPassword/>
+							</wsp:Policy>
+						</sp:UsernameToken>
+					</wsp:Policy>
+				</sp:SignedSupportingTokens>
+			</wsp:All>
+		</wsp:ExactlyOne>
+	</wsp:Policy>
+	
+</wsdl:definitions>

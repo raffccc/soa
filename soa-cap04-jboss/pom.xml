@@ -40,6 +40,22 @@
 			<version>1.0.1.Final</version>
 			<scope>provided</scope>
 		</dependency>
+		
+		<!-- For @EndpointConfig -->
+		<dependency>
+			<groupId>org.jboss.ws</groupId>
+  			<artifactId>jbossws-api</artifactId>
+  			<version>1.0.0.GA</version>
+  			<scope>provided</scope>
+		</dependency>
+		
+		<!-- For WSPasswordCallback used inside SecurityCallback -->
+		<dependency>
+			<groupId>org.apache.ws.security</groupId>
+			<artifactId>wss4j</artifactId>
+			<version>1.6.5</version>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
